@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 // HAVE TO PASS VALUE OF USER CITY TO THIS PAGE.
 class WeatherInfoPage extends StatefulWidget {
   String userCity;
+  String tz = '';
   WeatherInfoPage({required this.userCity});
 
 
@@ -45,18 +47,18 @@ class _WeatherInfoPageState extends State<WeatherInfoPage> {
                       child: Column(                                               // second in stack is this column which contains the text
                       crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 120),            // this is giving space between the city name and the top of the screen.
-                            Text('${widget.userCity}',
+                            SizedBox(height: 50),            // this is giving space between the city name and the top of the screen.
+                            Text('${widget.userCity}'.toUpperCase() + ", " +snapshot.data['country'],
                                   style: GoogleFonts.lato(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 50,
                                   color: Colors.white)
                               ,),
-                            Text('date and time', style: GoogleFonts.lato(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                                color: Colors.white)
-                            ),
+                            // Text('date and time', style: GoogleFonts.lato(
+                            //     fontWeight: FontWeight.bold,
+                            //     fontSize: 25,
+                            //     color: Colors.white)
+                            // ),
                         Column(
                             children: [
                               Container(
@@ -70,10 +72,16 @@ class _WeatherInfoPageState extends State<WeatherInfoPage> {
                                     fit: BoxFit.contain,),
                                     Text(snapshot.data['temperature'].toString() + " °C",
                                     style: GoogleFonts.lato(fontSize: 100, color: Colors.white),),
-                                    Text("Humidity : " + snapshot.data['humidity'].toString(),
+                                    Text('Minimum : ' + snapshot.data['min'].toString() + " °C",
+                                    style: GoogleFonts.lato(fontSize: 30, color: Colors.white),),
+                                    Text('Maximum : ' + snapshot.data['max'].toString() + " °C",
+                                    style: GoogleFonts.lato(fontSize: 30, color: Colors.white)),
+                                    Text("Humidity : " + snapshot.data['humidity'].toString() + " gm^-3",
                                     style: GoogleFonts.lato(fontSize: 30, color: Colors.white),),
                                     Text('Weather : ' + snapshot.data['desc'].toString(),
-                                    style: GoogleFonts.lato(fontSize: 30, color: Colors.white),)
+                                    style: GoogleFonts.lato(fontSize: 30, color: Colors.white),),
+                                    // String tz = tzmap.latLngToTimezoneString(snapshot.data['lat'], snapshot.data['lon']);
+
                                   ],
                                 ),
                               ),
@@ -111,7 +119,14 @@ Future apicall(String cityVal) async{
     'temperature' : ((json["main"]['temp']) - 273.15).round(),    // converting from kelvin to celsius.
     'humidity': json['main']['humidity'],
     'icon' : json['weather'][0]['icon'],
-    'desc' : json['weather'][0]['description']
+    'desc' : json['weather'][0]['description'],
+    'lat' : json['coord']['lat'],
+    'lon' : json['coord']['lon'],
+    'country' : json['sys']['country'],
+    'min' : ((json['main']['temp_min']) - 273.15).round(),
+    'max' : ((json['main']['temp_max']) - 273.15).round(),
+
+
 
   };
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/WeatherInfoPage.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // SHOULD FUTURE BUILDER FUNCTION BE PUT IN THE NEXT PAGE OR IS IT EASIER TO PASS VALUES BETWEEN SCREENS??
 
@@ -30,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _textController = TextEditingController();      // textController is the widget that will have access to input in TextField
   String userCity = '';
   bool isPressed = false;
-  String bckgImg = '.idea/images/mountains_bkg.jpg';
+  String bckgImg = '.idea/images/pleasantBckg.webp';
   //double temp = snapshot.data['temperature'];
 
   @override
@@ -53,39 +54,50 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 height: 100,
                 width: 300,
-
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: TextField(
-                    controller: _textController,
-                    decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.black,
-                                width: 2
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: TextField(
+                        controller: _textController,
+                        decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 2
+                                ),
+                                borderRadius: BorderRadius.circular(20)
                             ),
-                            borderRadius: BorderRadius.circular(20)
+                            border: OutlineInputBorder(),
+                            hintText: "Enter the city",
+                            hintStyle: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                            ),
+                            suffixIcon:
+                            IconButton(onPressed: (){
+                              _textController.clear();                     // Controller has clear() method.
+                            }, icon: Icon(Icons.clear))
                         ),
-                        border: OutlineInputBorder(),
-                        hintText: "Enter the city",
-                        hintStyle: TextStyle(
-                            color: Colors.black
-                        ),
-                        suffixIcon:
-                        IconButton(onPressed: (){
-                          _textController.clear();                     // Controller has clear() method.
-                        }, icon: Icon(Icons.clear))
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
               ElevatedButton(onPressed: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>WeatherInfoPage(userCity: _textController.text)));
               },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    onPrimary: Colors.black,
+                    textStyle: GoogleFonts.lato()
+
+                  ),
 
                 // setState(() {
                 //   userCity = _textController.text;
@@ -95,7 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text("Submit"),
-                  )),
+                  )
+              ),
 
               // isPressed?FutureBuilder(                        // future Builder is called as soon as the program begins. to prevent that, variable called isPressed, only when button pressed, it'll run future builder
               //     future : apicall(userCity),
