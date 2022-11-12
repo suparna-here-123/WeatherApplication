@@ -49,7 +49,7 @@ class _WeatherInfoPageState extends State<WeatherInfoPage> {
                             Text('${widget.userCity}',
                                   style: GoogleFonts.lato(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 35,
+                                  fontSize: 50,
                                   color: Colors.white)
                               ,),
                             Text('date and time', style: GoogleFonts.lato(
@@ -62,10 +62,17 @@ class _WeatherInfoPageState extends State<WeatherInfoPage> {
                               Container(
                                 margin: EdgeInsets.symmetric(vertical: 40),                 // WHAT IS MARGIN FOR A CONTAINER
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Image.network("http://openweathermap.org/img/w/"+snapshot.data['icon'].toString()+".png",
+                                    height: 150,
+                                    width: 150,
+                                    fit: BoxFit.contain,),
                                     Text(snapshot.data['temperature'].toString() + " °C",
                                     style: GoogleFonts.lato(fontSize: 100, color: Colors.white),),
                                     Text("Humidity : " + snapshot.data['humidity'].toString(),
+                                    style: GoogleFonts.lato(fontSize: 30, color: Colors.white),),
+                                    Text('Weather : ' + snapshot.data['desc'].toString(),
                                     style: GoogleFonts.lato(fontSize: 30, color: Colors.white),)
                                   ],
                                 ),
@@ -102,8 +109,12 @@ Future apicall(String cityVal) async{
   final output = {
     'description' : json["weather"][0]['description'],
     'temperature' : ((json["main"]['temp']) - 273.15).round(),    // converting from kelvin to celsius.
-    'humidity': json['main']['humidity']
+    'humidity': json['main']['humidity'],
+    'icon' : json['weather'][0]['icon'],
+    'desc' : json['weather'][0]['description']
+
   };
+
   return output;
 }
 
