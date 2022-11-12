@@ -98,7 +98,28 @@ class _WeatherInfoPageState extends State<WeatherInfoPage> {
 
             }
             else{
-              return CircularProgressIndicator();
+              //return CircularProgressIndicator();
+              return Container(
+                height: 2000,
+                width: 2000,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image : AssetImage('.idea/images/pleasantBckg.webp')
+                  )
+                ),
+                child: Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     crossAxisAlignment: CrossAxisAlignment.center,
+                     children: [
+                       Text("Oops, could not find this city!",
+                       style: GoogleFonts.lato(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 50),
+            ),
+              ]
+                )
+              );
+
+
+
             }
           }
     ),
