@@ -105,7 +105,7 @@ class _WeatherInfoPageState extends State<WeatherInfoPage> {
                 width: 2000,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image : AssetImage('.idea/images/pleasantBckg.webp')
+                      image : AssetImage('images/pleasantBckg.webp')
                   )
                 ),
                 child: Column(
