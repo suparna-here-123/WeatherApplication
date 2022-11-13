@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 class WeatherInfoPage extends StatefulWidget {
   String userCity;
   String tz = '';
+  String bckg = '';
   WeatherInfoPage({required this.userCity});
 
 
@@ -31,7 +32,7 @@ class _WeatherInfoPageState extends State<WeatherInfoPage> {
               return Container(
                 child: Stack(
                   children: [
-                  Image.asset('.idea/images/pleasantBckg.webp',         // first thing in stack is this pic made to fill bckg size.
+                  Image.asset('images/pleasantBckg.webp',         // first thing in stack is this pic made to fill bckg size.
                   fit: BoxFit.cover,
                   height: double.infinity,
                   width: double.infinity,),
@@ -140,7 +141,7 @@ Future apicall(String cityVal) async{
     'temperature' : ((json["main"]['temp']) - 273.15).round(),    // converting from kelvin to celsius.
     'humidity': json['main']['humidity'],
     'icon' : json['weather'][0]['icon'],
-    'desc' : json['weather'][0]['description'],
+    'desc' : json['weather'][0]['descriptio n'],
     'lat' : json['coord']['lat'],
     'lon' : json['coord']['lon'],
     'country' : json['sys']['country'],

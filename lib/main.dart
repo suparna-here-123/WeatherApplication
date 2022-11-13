@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
+
 }
 class MyApp extends StatelessWidget {
 const MyApp({Key? key}) : super(key: key);
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body : Container(
         decoration : BoxDecoration(
           image : DecorationImage(
-            image : AssetImage(bckgImg),          // always do right click of the image and copy content root. s
+            image : AssetImage('images/pleasantBckg.webp'),          // always do right click of the image and copy content root. s
             fit: BoxFit.cover,
           )
         ),
@@ -65,6 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.all(12.0),
                       child: TextField(
                         controller: _textController,
+                        style: TextStyle(color: Colors.white),
+                        cursorColor: Colors.white,
                         decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
