@@ -135,20 +135,18 @@ Future apicall(String cityVal) async{
   final response = await http.get(url);         // final means the variable response does not change during the runtime of the code(during a particular request)
   print (response.body);      // this body is of type string
   final json = jsonDecode(response.body);
-  print (json["weather"][0]['description']);
+  print (json);
   final output = {
     'description' : json["weather"][0]['description'],
     'temperature' : ((json["main"]['temp']) - 273.15).round(),    // converting from kelvin to celsius.
     'humidity': json['main']['humidity'],
     'icon' : json['weather'][0]['icon'],
-    'desc' : json['weather'][0]['descriptio n'],
+    'desc' : json['weather'][0]['description'],
     'lat' : json['coord']['lat'],
     'lon' : json['coord']['lon'],
     'country' : json['sys']['country'],
     'min' : ((json['main']['temp_min']) - 273.15).round(),
     'max' : ((json['main']['temp_max']) - 273.15).round(),
-
-
 
   };
 
